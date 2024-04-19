@@ -1,1 +1,1 @@
-# projeto-individuak
+# projeto-individual
