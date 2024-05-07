@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="navbanner">
+        <nav class="navbar">
+                <a href="#section2">HISTORIA</a>
+                <a href="./categorias.html">CATEGORIAS</a>
+                <a class="navLogo" href="./index.html"><img src="../assetsIndividual/logo.png" alt="LOGO"></a>
+                <a href="">CADASTRO</a>
+                <a href="">LOGIN</a>
+        </nav>
+
+
+        <div class="div-banner">
+            <div class="textbanner">
+                <h1>AUTOMOBILISMO</h1>
+                <hr>
+                <span>Além de corridas, uma paixão por máquinas e técnologia </span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section1">
+        <div class="textSection1">
+            <h1>O QUE É O AUTOMOBILISMO</h1>
+            <hr>
+            <span>O automobilismo é mais que corridas de carros, é a fusão de tecnologia estratégia e emoção. A paixão por esse esporte envolve rivalidades historicas, emoção, roncos de motores, carros, pilotos, circuitos e muito mais, proporcionando momentos e objetivos de vida de crianças, adolecentes, adultos, sonhadores e todo tipo de pessoa ao rendor do mundo, a sensação de esperar pela próxima curva, curva após curva, se superando, um esporte que transcende o tempo, sempre deixando legados inesquecíveis para as próximas gerações </span>
+        </div>
+    </section>
+
+    <section id="section2" class="section2">
+
+        <div class="btn">
+            <button class="prev" onclick="plusSlide(-1)">Anterior</button>
+            <button class="next" onclick="plusSlide(1)">Próximo</button>
+        </div>   
+        
+        <div class="slide slide1">
+            <div class="slide1contain">
+                <div class="textslide1">
+                    <h1>Misera</h1>
+                    <span>miseravi</span>
+                </div>
+                <img class="img1" src="../assetsIndividual/787b.jpg" alt="Slide 1">
+            </div>
+        </div>
+        
+        <div class="slide slide1">
+            <div class="slide2contain">
+                <h1>Coisa</h1>
+                <span>aaaaa</span>
+            </div>
+            <img src="https://via.placeholder.com/800x300" alt="Slide 2">
+        </div>
+
+       
+
+    </section>
+
+
+    <section class="section4">
+        <h1>PRINCIPAIS CATEGORIAS</h1>
+
+        <div class="containerCards1">
+            <div class="card1">
+                <h1>FÓRMULA 1</h1>
+                <span>A Fórmula 1 é a maior, mais técnologica e mais famosa categoria do automobilismo, onde os melhores pilotos do mundo competem nos circuitos mais famosos do globo em busca do pódio, superando os menores tempos de volta</span>
+                <img class="card1img" src="../assetsIndividual/formula1car.png" alt="">
+            </div>
+
+            <div class="card2">
+                <h1>NASCAR</h1>
+                <span>A Nascar é composta por carros robustos americanos que correm em circuitos ovais a mais de 300km/h a centímetros dos outros, onde se utiliza muito do drafting(vácuo) e outras estratégias para vencer.</span>
+                <img class="card2img" src="../assetsIndividual/nascarcar.png" alt="">
+            </div>
+        </div>
+
+
+        <div class="containerCards2">
+
+            <div class="card3">
+                <h1>ENDURENCE</h1>
+                <span>O Endurance é uma das categorias mais antigas do automobilismo, é sobre resistência e estratégia, corridas de longa duração como as 24 Horas de Le Mans, equipes e pilotos enfrentando outros carros, integridade do carro e resistência física.</span>
+                <img class="card3img" src="../assetsIndividual/endurenceCar.png" alt="">
+            </div>
+
+            <div class="card4">
+                <h1>RALLY</h1>
+                <span>
+
+                </span>
+                <img src="" alt="">
+            </div>
+
+        </div>
+
+        <div class="containerCards3">
+
+            <div class="card5">
+
+            </div>
+
+            <div class="card6">
+
+            </div>
+
+        </div>
+
+        <div class="containerCards4">
+
+            <div class="card7">
+
+            </div>
+
+            <div class="card8">
+
+            </div>
+
+        </div>
+
+    </section>
+</body>
+
+</html>
+
+<script>
+
+let slideIndex = 1;
+
+function plusSlide(n) {
+  showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+    let slides = document.getElementsByClassName("slide");
+    if (n > slides.length) {
+        slideIndex = 1;
+    }
+    if (n < 1) {
+        slideIndex = slides.length;
+    }
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slides[slideIndex - 1].style.display = "flex";
+}
+
+showSlides(slideIndex);
+
+</script>
