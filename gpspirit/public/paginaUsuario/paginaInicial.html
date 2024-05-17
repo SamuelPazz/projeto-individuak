@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GP-Spirit | Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/quiz.css">
+    <script src="../js/sessao.js"></script>
+    <script src="../js/alerta.js"></script>
+
+</head>
+
+<body onload="validarSessao()">
+
+    <div class="janela">
+        <div class="header-left dash-header">
+            <img src="../assets/logo.png" alt="">
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav">
+                <a href="./paginaQuiz.html">
+                    <h3>Quiz</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav">
+                <a href="./paginaDashboard.html">
+                    <h3>Gráficos</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </div>
+
+        <div class="content-right">
+            <div class="contentMsg">
+                <span>Bem vindo página do usuario, aqui você pode fazer um quiz para testar seu conhecimento sobre o automobilismo e acessar um gráfico para quais categorias os outros usuarios mais gostam e ver a média de acertos no quiz</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script src="../js/quiz.js" type="module"></script>

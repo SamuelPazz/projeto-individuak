@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FAFAFA;
+    color: white;
+}
+
+.navbanner {
+    width: 100%;
+    height: 100vh;
+    background-image: url(../assets/fundogt.png);
+    background-size: cover;
+    background-repeat:round;
+}
+
+.navbar {
+    width: 100%;
+    height: 10%;
+    padding: 50px 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.navbar a {
+    font-size: 18px;
+    color: #FAFAFA;
+    width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.navbar .navLogo {
+    width: 200px;
+}
+
+.navLogo img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+
+.container-banner {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-formulario {
+    background-color: rgb(14, 18, 21, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    margin: 10px;
+}
+
+.container-formulario h1{
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-campos {
+    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: transparent;
+    width: 500px;
+    font-size: 22px;
+
+}
+
+input:focus{
+    border: 3px solid #C7EEFF;
+    background-color: rgba(199, 238, 255, 0.1);
+}
+
+.btn {
+    color: white;
+    background-color: #0077C0;
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.loading-div {
+    width: 50px;
+    display: none;
+}
+  
+.loading-div img {
+    height: 50px;
+    width: 50px;
+}
+
+.alerta_erro{
+
+}
+
+.card_erro {
+
+}
+
+.mensagem_erro {
+
+}
+
