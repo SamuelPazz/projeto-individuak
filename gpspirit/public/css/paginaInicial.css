@@ -104,14 +104,22 @@ body {
   display: flex;
   width: 80%;
   left: 20%;
-  background: linear-gradient(90deg, rgba(91,30,159,1) 0%, rgba(77,39,182,1) 100%);
+  background-image: url(../assets/fundo787B.png);
+  background-size: cover;
+  background-repeat: round;
   height: 100vh;
   justify-content: center;
   align-items: center;
 }
 
 .contentMsg {
+  color: #FAFAFA;
+  border-radius: 15px;
+  padding: 30px;
+  background-color: rgb(14, 18, 21, 0.7);
   display: flex;
+  line-break: auto;
+  width: 500px;
   align-items: center;
   justify-content: center;
   flex-direction: column;

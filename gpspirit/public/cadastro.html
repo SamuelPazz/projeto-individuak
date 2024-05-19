@@ -23,34 +23,50 @@
     </nav>
 
     <div class="container-banner">
-      <div class="alerta_erro">
-        <div class="card_erro" id="cardErro">
-          <span class="mensagem_erro" id="mensagem_erro"></span>
-        </div>
-      </div>
+          <span style="display: none;" class="mensagem_erro" id="mensagem_erro"></span>
       <div class="container-formulario">
         <h1>CADASTRO</h1>
         <div class="container-campos">
           <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
+            <span class="spanValidate" id="validateNome"></span>
+          </div>
+          <div class="campo">
+            <span>Categoria Favorita:</span>
+            <select id="selectCategoria">
+              <option value="#">Selecione uma Categoria</option>
+              <option value="Fórmula 1">Fórmula 1 </option>
+              <option value="Nascar">Nascar</option>
+              <option value="Endurence">Endurence</option>
+              <option value="Rally">Rally</option>
+              <option value="Touring">Touring</option>
+              <option value="Gran Turismo">Gran Turismo</option>
+              <option value="Drift">Drift</option>
+              <option value="Stock Car">Stock Car</option>
+              <option value="Outra">Outra</option>
+            </select>
+            <span class="spanValidate" id="validateCategoria"></span>
           </div>
           <div class="campo">
             <span>E-mail:</span>
             <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+            <span class="spanValidate" id="validateEmail"></span>
           </div>
           <div class="campo">
             <span>Senha:</span>
             <input id="senha_input" type="password" placeholder="******" />
-          </div>
+            <span class="spanValidate" id="validateSenha"></span>
+          </div> 
           <div class="campo">
             <span>Confirmação da Senha:</span>
             <input id="confirmInput" type="password" placeholder="******" />
+            <span class="spanValidate" id="validateConfirm"></span>
           </div>
           <button class="btn" onclick="cadastrar()">CADASTRAR</button>
         </div>
         <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
+          <img src="./assets/loading.gif" id="loading-gif" />
         </div>
       </div>
     </div>
@@ -60,17 +76,104 @@
 
 <script src="./js/sessao.js"></script>
 <script>
+  var validateUpper = false
+  var validateLower = false
+  var validateEmail = false
+  var validateConfirm = false
+  var validateNome = false
+  var validateSenha = false
+
   function cadastrar() {
     var nomeVar = nome_input.value;
+    var categoriafav = selectCategoria.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmInput.value;
     var indiceEmail = emailVar.indexOf('@');
-    
-    aguardar();
-    finalizarAguardar();
+  
+    if(nomeVar.length > 2 ){
+      document.getElementById("validateNome").style.display = "none";
+      validateNome = true;
+    } else {
+      document.getElementById("validateNome").style.display = "block";
+      document.getElementById("validateNome").innerHTML = "Deve conter mais de 2 caracteres";
+      mensagem_erro.style.display = "block";
+      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      finalizarAguardar();
+      validateNome = false;
+    }
 
-    setInterval(sumirMensagem, 5000);
+    if(categoriafav !=  "#"){
+      document.getElementById("validateCategoria").style.display = "none"
+      validateCategoria = true
+    } else {
+      document.getElementById("validateCategoria").style.display = "block";
+      document.getElementById("validateCategoria").innerHTML = "Selecione uma categoria";
+      mensagem_erro.style.display = "block";
+      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      finalizarAguardar();
+      validateCategoria = false;
+    }
+
+    if(indiceEmail >= 0){
+      document.getElementById("validateEmail").style.display = "none";
+      validateEmail = true;
+    } else {
+      document.getElementById("validateEmail").style.display = "block";
+      document.getElementById("validateEmail").innerHTML = "Deve conter @";
+      mensagem_erro.style.display = "block";
+      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      finalizarAguardar();
+      validateEmail = false;
+    }
+
+
+    for (var i = 0; i < senhaVar.length && validateUpper == false; i++) {
+        if (senhaVar[i] == senhaVar[i].toUpperCase()) {
+            validateUpper = true;
+        }
+    }
+
+    for (var i = 0; i < senhaVar.length && validateLower == false; i++) {
+        if (senhaVar[i] == senhaVar[i].toLowerCase()) {
+            validateLower = true;
+        }
+    }
+
+    if(validateUpper = true && validateLower == true && senhaVar.length >=6){
+      document.getElementById("validateSenha").style.display = "none";
+      validateSenha = true;
+    } else {
+      document.getElementById("validateSenha").style.display = "block";
+      document.getElementById("validateSenha").innerHTML = "Deve ter no minímo 6 caracteres, um caractere maiúsculo e um minúsculo.";
+      mensagem_erro.style.display = "block";
+      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      finalizarAguardar();
+      validateLower = false;
+      validateUpper = false;
+      validateSenha = false
+    }
+    
+    if(confirmacaoSenhaVar == senhaVar){
+      document.getElementById("validateConfirm").style.display = "none"
+      validateConfirm = true;
+    } else {
+      document.getElementById("validateConfirm").style.display = "block";
+      document.getElementById("validateConfirm").innerHTML = "Deve ser igual Senha";
+      mensagem_erro.style.display = "block";
+      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      finalizarAguardar();
+      validateConfirm = false;
+    }
+
+    if(validateNome == true && validateSenha == true && validateUpper == true && validateLower == true && validateEmail == true && validateConfirm == true && validateCategoria == true){
+      mensagem_erro.style.display = "none";
+      aguardar();
+    } else {
+      finalizarAguardar();
+      return false;
+    }
+  
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
@@ -78,6 +181,7 @@
       },
       body: JSON.stringify({
         nomeServer: nomeVar,
+        categoriaServer: categoriafav,
         emailServer: emailVar,
         senhaServer: senhaVar
       }),
@@ -86,31 +190,23 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          mensagem_erro.style.display = "block";
+          mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
 
           limparFormulario();
-          finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
       });
 
     return false;
   }
 
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
 </script>

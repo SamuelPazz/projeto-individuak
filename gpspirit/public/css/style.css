@@ -433,20 +433,33 @@ body {
 
 .section4 {
     width: 100%;
+    height: 756.64px;
+    background-color: #0E1215;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #0E1215;
+    flex-direction: column;
 }
 
 .divPaixao {
     display: flex;
+    align-items: center;
+    justify-content: space-around;
     width: 100%;
 } 
 
 .textPaixao {
-    width: 500px;
+    width: 650px;
+    line-break: auto;
     text-align: justify;
+    flex-direction: column;
+    font-size: 22px;
+}
+
+.textPaixao h1 {
+    font-size: 24px;
+    border-bottom: 3px solid white;
 }
 
 .divRelevancia {
@@ -457,6 +470,14 @@ body {
 } 
 
 .textRelevancia {
-    width: 500px;
+    width: 650px;
+    line-break: auto;
     text-align: justify;
+    flex-direction: column;
+    font-size: 22px;
+}
+
+.textRelevancia h1 {
+    font-size: 24px;
+    border-bottom: 3px solid white;
 }

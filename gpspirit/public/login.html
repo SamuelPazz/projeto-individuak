@@ -25,11 +25,7 @@
         </nav>
 
         <div class="container-banner">
-            <div class="alerta_erro">
-                <div class="card_erro" id="cardErro">
                     <span class="mensagem_erro" id="mensagem_erro"></span>
-                </div>
-            </div>
             <div class="container-formulario">
                 <h1>LOGIN</h1>
                 <div class="container-campos">
@@ -45,9 +41,8 @@
                     <button class="btn" onclick="entrar()">ENTRAR</button>
                 </div>
                 <div id="div_aguardar" class="loading-div">
-                    <img src="./assets/circle-loading.gif" id="loading-gif" />
+                    <img src="./assets/loading.gif" alt="" id="loading-gif">
                 </div>
-                <div id="div_erros_login"></div>
             </div>
         </div>
     </div>
@@ -57,23 +52,12 @@
 
 <script src="./js/sessao.js"></script>
 <script>
-
-
     function entrar() {
-        aguardar();
 
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
+        
 
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
-            return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
 
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
@@ -92,6 +76,8 @@
 
             if (resposta.ok) {
                 console.log(resposta);
+                aguardar();
+                
 
                 resposta.json().then(json => {
                     console.log(json);
@@ -100,13 +86,16 @@
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     setTimeout(function () {
-                        window.location = "./paginaUsuario/paginaInicial.html";
+                        window.location = "paginaInicial.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
 
             } else {
-
+                
+                finalizarAguardar();
+                document.getElementById("mensagem_erro").style.display = "block";
+                document.getElementById("mensagem_erro").innerHTML = "E-mail ou Senha incorretos";
                 console.log("Houve um erro ao tentar realizar o login!");
 
                 resposta.text().then(texto => {
@@ -122,8 +111,7 @@
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
+ 
 
 </script>
+
