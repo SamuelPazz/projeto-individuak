@@ -112,79 +112,15 @@ body {
   align-items: center;
 }
 
-main {
-  background-color: rgb(14, 18, 21, 0.7);
-  padding: 20px;
+.contentMsg {
+  color: #FAFAFA;
   border-radius: 15px;
+  padding: 30px;
+  background-color: rgb(14, 18, 21, 0.7);
+  display: flex;
+  line-break: auto;
   width: 500px;
-  max-width: 500px;
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.contentQuiz {
-  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.contentQuiz h2 {
-  color: #FAFAFA;
-  font-size: 30px;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 10px;
-}
-
-.spnQtd {
-  text-align: center;
-  color: #FAFAFA;
-  font-weight: bold;
-}
-.question {
-  color: #FAFAFA;
-}
-
-.answers {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.answer {
-  padding: 10px;
-}
-
-button {
-  font-size: 22px;
-  width: 100%;
-  text-align: start;
-  padding: 5px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: rgba(0, 119, 192, 0.9);
-  color: #FAFAFA;
-}
-
-.finish {
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.finish button {
-  text-align: center;
-}
-
-.finish span {
-  text-align: center;
-  color: #FAFAFA;
 }

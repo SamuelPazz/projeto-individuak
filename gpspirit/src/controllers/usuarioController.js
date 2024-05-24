@@ -1,19 +1,19 @@
 var usuarioModel = require("../models/usuarioModel");
 
 
-function autenticar(req,res) {
+function autenticar(req, res) {
 
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
     if (email == undefined) {
-    res.status(400).send("Seu email está undefined!");
+        res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
-    res.status(400).send("Sua senha está indefinida!");
+        res.status(400).send("Sua senha está indefinida!");
     } else {
-        usuarioModel.autenticar(email,senha)
+        usuarioModel.autenticar(email, senha)
             .then(
-                function (resultadoAutenticar){
+                function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
 
@@ -25,12 +25,11 @@ function autenticar(req,res) {
                     })
                 }
             ).catch(
-                function (erro){
+                function (erro) {
                     console.log(erro);
                     console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
-                }
-            );
+                });
     }
 }
 
@@ -41,7 +40,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var categoriafav = req.body.categoriaServer;
-  
+
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -50,7 +49,7 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if(categoriafav == undefined){
+    } else if (categoriafav == undefined) {
         res.status(400).send("Sua categoria está undefined!")
     } else {
 

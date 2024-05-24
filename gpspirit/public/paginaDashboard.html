@@ -9,13 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/paginaInicial.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/sessao.js"></script>
     <script src="./js/alerta.js"></script>
 
 </head>
 
-<body onload="validarSessao()">
+<body>
 
     <div class="janela">
         <div class="header-left dash-header">
@@ -49,13 +50,142 @@
         </div>
 
         <div class="content-right">
-            <div class="contentMsg">
-                <span>Bem vindo página do usuario, aqui você pode fazer um quiz para testar seu conhecimento sobre o automobilismo e acessar um gráfico para quais categorias os outros usuarios mais gostam e ver a média de acertos no quiz</span>
+
+            <div id="divMaxPontos">
+
+            </div>
+            <div id="divMaxTentativas">
+
+            </div>
+            <div style="background-color: white;" id="grafico">
+                <canvas id="myChartCanvas"></canvas>
             </div>
         </div>
-
     </div>
 </body>
 
 </html>
-<script src="./js/quiz.js" type="module"></script>
+
+<script>
+    var fkUsuario = sessionStorage.ID_USUARIO;
+    window.onload = validarSessao(), pontosMax(), tentativasMax(), obterDadosGrafico();
+
+    function pontosMax() {
+        fetch(`/dadosRoute/puxarMaxAcertos`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idUsuarioServer: fkUsuario
+            }),
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then((resposta) => {
+                        divMaxPontos.innerHTML = resposta[0].MaxPontos;
+                    });
+                }
+            })
+            .catch(function (response) {
+                console.log(`#ERRO: ${response}`);
+            });
+    }
+
+    function tentativasMax() {
+        fetch(`/dadosRoute/puxarMaxTentativas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idUsuarioServer: fkUsuario
+            }),
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then((resposta) => {
+                        divMaxTentativas.innerHTML = resposta[0].MaxTentativas;
+                    });
+                }
+            })
+            .catch(function (response) {
+                console.log(`#ERRO: ${response}`);
+            });
+    }
+    var qtdPontos = []
+    var qtdTentativas = []
+    function obterDadosGrafico() {
+        fetch(`/dadosRoute/puxarTentativasAcertos`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idUsuarioServer: fkUsuario
+            })
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then((resposta) => {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        for (i = 0; i < resposta.length; i++) {
+                            qtdPontos.push(resposta[i].Pontos)
+                            qtdTentativas.push(resposta[i].Tentativas);                       
+                        }
+                        plotarGrafico();
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+    }
+
+    function plotarGrafico() {
+
+        console.log('iniciando plotagem do gráfico...');
+        
+        let dados = {
+            labels: qtdTentativas,
+            datasets: [
+                {
+                    label: 'Pontuação',
+                    data: qtdPontos,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas`),
+            config
+        );
+    }
+</script>

@@ -7,28 +7,28 @@ const contentFinish = document.querySelector(".finish");
 const btnRestart = document.querySelector(".finish button");
 const ID_USUARIO = Number(sessionStorage.getItem("ID_USUARIO"));
 
-
 import questions from "./questions.js";
 
-let currentIndex = 0;
-let questionsCorrect = 0;
+let idQuiz = 1;
+let indexAtual = 0;
+let questoesAcertos = 0;
 
 btnRestart.onclick = () => {
   content.style.display = "flex";
   contentFinish.style.display = "none";
 
-  currentIndex = 0;
-  questionsCorrect = 0;
+  indexAtual = 0;
+  questoesAcertos = 0;
   loadQuestion();
 };
 
 function nextQuestion(e) {
   if (e.target.getAttribute("data-correct") === "true") {
-    questionsCorrect++;
+    questoesAcertos++;
   }
 
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
+  if (indexAtual < questions.length - 1) {
+    indexAtual++;
     loadQuestion();
   } else {
     finish();
@@ -36,7 +36,15 @@ function nextQuestion(e) {
 }
 
 function finish() {
-  textFinish.innerHTML = `você acertou ${questionsCorrect} de ${questions.length}`;
+  textFinish.innerHTML = ``
+  if(questoesAcertos <= 5){
+    textFinish.innerHTML += `Parece que você curte muito o automobilismo😓`
+  } else if (questoesAcertos <= 10){
+    textFinish.innerHTML += `Você gosta muito do automobilismo🚗`
+  } else if (questoesAcertos <=16){
+    textFinish.innerHTML += `Ayrton senna??????🏎️`
+  }
+  textFinish.innerHTML += `<br>você acertou ${questoesAcertos} de ${questions.length}`;
   content.style.display = "none";
   contentFinish.style.display = "flex";
 
@@ -46,17 +54,19 @@ function finish() {
       "Content-type": "application/json"
     },
     body: JSON.stringify ({
-      acertosServer: questionsCorrect
+      idQuizServer: idQuiz,
+      idUsuarioServer : ID_USUARIO,
+      acertosServer: questoesAcertos
     })
   }).then(res => {
     console.log(res);
   })
-  console.log(questionsCorrect);
+  console.log(questoesAcertos);
 }
 
 function loadQuestion() {
-  spnQtd.innerHTML = `${currentIndex + 1}/${questions.length}`;
-  const item = questions[currentIndex];
+  spnQtd.innerHTML = `${indexAtual + 1}/${questions.length}`;
+  const item = questions[indexAtual];
   answers.innerHTML = "";
   question.innerHTML = item.question;
 
