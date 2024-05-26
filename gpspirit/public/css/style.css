@@ -452,8 +452,7 @@ body {
     margin-top: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 180px;
+    justify-content: space-evenly;
     width: 100%;
 } 
 
@@ -477,8 +476,7 @@ body {
     margin-bottom: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 180px;
+    justify-content: space-evenly;
     width: 100%;
 } 
 

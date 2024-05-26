@@ -101,26 +101,58 @@ body {
 
 .content-right {
   position: relative;
-  display: flex;
+  top: 0;
   width: 80%;
   left: 20%;
   background-image: url(../assets/fundo787B.png);
   background-size: cover;
   background-repeat: round;
   height: 100vh;
-  justify-content: center;
-  align-items: center;
 }
 
-.contentMsg {
+.kpi {
   color: #FAFAFA;
-  border-radius: 15px;
-  padding: 30px;
-  background-color: rgb(14, 18, 21, 0.7);
+  height: 300px;
   display: flex;
-  line-break: auto;
-  width: 500px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.divGraficos {
+  display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.divGrafico1 {
+  background-color: rgba(14, 18, 21, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+#divMaxPontos {
+  display: flex;
+  padding: 15px;
+  background-color: rgba(14, 18, 21, 0.8);
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
+
+#divMaxTentativas {
+  display: flex;
+  padding: 15px;
+  background-color: rgba(14, 18, 21, 0.8);
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+

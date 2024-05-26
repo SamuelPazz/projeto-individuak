@@ -51,14 +51,21 @@
 
         <div class="content-right">
 
-            <div id="divMaxPontos">
-
+            <div class="kpi">
+                <div id="divMaxPontos">
+                    <span>Pontuação Máxima</span>
+                    <span id="spanMaxPontos"></span>
+                </div>
+                <div id="divMaxTentativas">
+                    <span>Tentativas</span>
+                    <span id="spanMaxTentativas"></span>
+                </div>
             </div>
-            <div id="divMaxTentativas">
 
-            </div>
-            <div style="background-color: white;" id="grafico">
-                <canvas id="myChartCanvas"></canvas>
+            <div class="divGraficos">
+                <div class="divGrafico1" id="grafico">
+                    <canvas id="myChartCanvas"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -83,7 +90,18 @@
             .then(function (response) {
                 if (response.ok) {
                     response.json().then((resposta) => {
-                        divMaxPontos.innerHTML = resposta[0].MaxPontos;
+                        if (resposta[0].MaxPontos == null) {
+                            spanMaxPontos.innerHTML = `Você ainda não realizou o quiz`;
+                        } else if (resposta[0].MaxPontos <= 7) {
+                            spanMaxPontos.style.color = "#FF0000"
+                            spanMaxPontos.innerHTML = resposta[0].MaxPontos;
+                        } else if (resposta[0].MaxPontos <= 12) {
+                            spanMaxPontos.style.color = "#F0F000"
+                            spanMaxPontos.innerHTML = resposta[0].MaxPontos;
+                        } else if (resposta[0].MaxPontos <= 16) {
+                            spanMaxPontos.style.color = "#00FF00"
+                            spanMaxPontos.innerHTML = resposta[0].MaxPontos;
+                        }
                     });
                 }
             })
@@ -105,7 +123,11 @@
             .then(function (response) {
                 if (response.ok) {
                     response.json().then((resposta) => {
-                        divMaxTentativas.innerHTML = resposta[0].MaxTentativas;
+                        if(resposta[0].MaxTentativas == null){
+                            spanMaxTentativas.innerHTML = `0`;
+                        } else {
+                            spanMaxTentativas.innerHTML = resposta[0].MaxTentativas;
+                        }
                     });
                 }
             })
@@ -113,6 +135,7 @@
                 console.log(`#ERRO: ${response}`);
             });
     }
+
     var qtdPontos = []
     var qtdTentativas = []
     function obterDadosGrafico() {
@@ -130,9 +153,9 @@
                     response.json().then((resposta) => {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                        for (i = 0; i < resposta.length; i++) {
+                        for (var i = 0; i < resposta.length; i++) {
                             qtdPontos.push(resposta[i].Pontos)
-                            qtdTentativas.push(resposta[i].Tentativas);                       
+                            qtdTentativas.push(resposta[i].Tentativas);
                         }
                         plotarGrafico();
                     });
@@ -146,9 +169,8 @@
     }
 
     function plotarGrafico() {
-
         console.log('iniciando plotagem do gráfico...');
-        
+
         let dados = {
             labels: qtdTentativas,
             datasets: [
@@ -156,11 +178,55 @@
                     label: 'Pontuação',
                     data: qtdPontos,
                     fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
+                    borderColor: '#0077C0',
+                    borderWidth: 5,
+                    backgroundColor: '#FAFAFA',
+                    tension: 0.1,
+                    pointRadius: 5,
+                    pointBorderWidth: 2
                 },
             ]
         };
+
+        let options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FAFAFA',
+                        font: {
+                            size: 17
+                        }
+                    },
+                    grid: {
+                        color: '#FAFAFA'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#FAFAFA'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#FAFAFA'
+                    }
+                },
+                title: {
+                    font: {
+                        size: 20
+                        },
+                    display: true,
+                    text: 'Suas pontuações em cada tentativa',
+                    color: '#FAFAFA',
+                }
+            },
+        }
+        
+
+            
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
@@ -171,7 +237,6 @@
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
-        console.log(labels)
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
@@ -180,6 +245,7 @@
         const config = {
             type: 'line',
             data: dados,
+            options: options,
         };
 
         // Adicionando gráfico criado em div na tela

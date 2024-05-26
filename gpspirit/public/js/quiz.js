@@ -37,12 +37,12 @@ function nextQuestion(e) {
 
 function finish() {
   textFinish.innerHTML = ``
-  if(questoesAcertos <= 5){
+  if(questoesAcertos <= 7){
     textFinish.innerHTML += `Parece que você curte muito o automobilismo😓`
-  } else if (questoesAcertos <= 10){
+  } else if (questoesAcertos <= 12){
     textFinish.innerHTML += `Você gosta muito do automobilismo🚗`
   } else if (questoesAcertos <=16){
-    textFinish.innerHTML += `Ayrton senna??????🏎️`
+    textFinish.innerHTML += `Você é um verdadeiro gearhead🏎️`
   }
   textFinish.innerHTML += `<br>você acertou ${questoesAcertos} de ${questions.length}`;
   content.style.display = "none";
