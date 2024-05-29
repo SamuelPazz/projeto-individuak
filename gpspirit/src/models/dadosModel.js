@@ -23,8 +23,16 @@ function puxarTentativasAcertos(fkUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function puxarCategorias() {
+    var instrucaoSql = `SELECT categoria.nome as NomeCategoria, COUNT(usuario.fkCategoria) as QtdEscolhidas FROM usuario 
+    RIGHT JOIN categoria ON categoria.idCategoria = fkCategoria GROUP BY categoria.nome;`;
+    console.log("Puxando as categorias" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     puxarMaxAcertos,
     puxarMaxTentativas,
-    puxarTentativasAcertos
+    puxarTentativasAcertos,
+    puxarCategorias
 }

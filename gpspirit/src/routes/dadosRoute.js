@@ -16,4 +16,8 @@ router.post("/puxarTentativasAcertos", function(req, res) {
     dadosController.puxarTentativasAcertos(req ,res);
 })
 
+router.post("/puxarCategorias", function(req, res) {
+    dadosController.puxarCategorias(req ,res);
+})
+
 module.exports = router;

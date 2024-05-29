@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="./css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/sessao.js"></script>
-    <script src="./js/alerta.js"></script>
 
 </head>
 
@@ -63,8 +62,11 @@
             </div>
 
             <div class="divGraficos">
-                <div class="divGrafico1" id="grafico">
+                <div class="divGrafico1">
                     <canvas id="myChartCanvas"></canvas>
+                </div>
+                <div class="divGrafico1">
+                    <canvas id="myChartCanvas2"></canvas>
                 </div>
             </div>
         </div>
@@ -75,7 +77,7 @@
 
 <script>
     var fkUsuario = sessionStorage.ID_USUARIO;
-    window.onload = validarSessao(), pontosMax(), tentativasMax(), obterDadosGrafico();
+    window.onload = validarSessao(), pontosMax(), tentativasMax(), obterDadosGrafico(), obterDadosGrafico2();
 
     function pontosMax() {
         fetch(`/dadosRoute/puxarMaxAcertos`, {
@@ -123,7 +125,7 @@
             .then(function (response) {
                 if (response.ok) {
                     response.json().then((resposta) => {
-                        if(resposta[0].MaxTentativas == null){
+                        if (resposta[0].MaxTentativas == null) {
                             spanMaxTentativas.innerHTML = `0`;
                         } else {
                             spanMaxTentativas.innerHTML = resposta[0].MaxTentativas;
@@ -217,16 +219,16 @@
                 title: {
                     font: {
                         size: 20
-                        },
+                    },
                     display: true,
                     text: 'Suas pontuações em cada tentativa',
                     color: '#FAFAFA',
                 }
             },
         }
-        
 
-            
+
+
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
@@ -251,6 +253,120 @@
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
             document.getElementById(`myChartCanvas`),
+            config
+        );
+    }
+
+    // Gráficos de quantidade de escolhas para cada categoria 
+    var nomesCategorias = []
+    var qtdEscolhidas = []
+
+    function obterDadosGrafico2() {
+        fetch(`/dadosRoute/puxarCategorias`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then((resposta) => {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        for (var i = 0; i < resposta.length; i++) {
+                            nomesCategorias.push(resposta[i].NomeCategoria);
+                            qtdEscolhidas.push(resposta[i].QtdEscolhidas);
+                        }
+                        plotarGrafico2();
+                    });
+                }
+            })
+            .catch (function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+    }
+
+    function plotarGrafico2() {
+        console.log('iniciando plotagem do gráfico...');
+        let dados = {
+            labels: nomesCategorias,
+            datasets: [
+                {
+                    label: 'Pontuação',
+                    data: qtdEscolhidas,
+                    fill: false,
+                    borderColor: '#0077C0',
+                    borderWidth: 5,
+                    backgroundColor: '#FAFAFA',
+                    tension: 0.1,
+                    pointRadius: 5,
+                    pointBorderWidth: 2
+                },
+            ]
+        };
+
+        let options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FAFAFA',
+                        font: {
+                            size: 17
+                        }
+                    },
+                    grid: {
+                        color: '#FAFAFA'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#FAFAFA'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#FAFAFA'
+                    }
+                },
+                title: {
+                    font: {
+                        size: 20
+                    },
+                    display: true,
+                    text: 'As categorias mais populares',
+                    color: '#FAFAFA',
+                }
+            },
+        }
+
+
+
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: options,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas2`),
             config
         );
     }

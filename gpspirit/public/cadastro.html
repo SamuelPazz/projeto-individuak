@@ -38,15 +38,15 @@
             <span>Categoria Favorita:</span>
             <select id="selectCategoria">
               <option value="#">Selecione uma Categoria</option>
-              <option value="Fórmula 1">Fórmula 1 </option>
-              <option value="Nascar">Nascar</option>
-              <option value="Endurence">Endurence</option>
-              <option value="Rally">Rally</option>
-              <option value="Touring">Touring</option>
-              <option value="Gran Turismo">Gran Turismo</option>
-              <option value="Drift">Drift</option>
-              <option value="Stock Car">Stock Car</option>
-              <option value="Outra">Outra</option>
+              <option value="1">Fórmula 1 </option>
+              <option value="2">Nascar</option>
+              <option value="3">Endurence</option>
+              <option value="4">Rally</option>
+              <option value="5">Touring</option>
+              <option value="6">Gran Turismo</option>
+              <option value="7">Drift</option>
+              <option value="8">Stock Car</option>
+              <option value="9">Outra</option>
             </select>
             <span class="spanValidate" id="validateCategoria"></span>
           </div>
@@ -87,7 +87,7 @@
 
   function cadastrar() {
     var nomeVar = nome_input.value;
-    var categoriafav = selectCategoria.value;
+    let categoria = selectCategoria.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmInput.value;
@@ -105,7 +105,7 @@
       validateNome = false;
     }
 
-    if(categoriafav !=  "#"){
+    if(categoria !=  "#"){
       document.getElementById("validateCategoria").style.display = "none"
       validateCategoria = true
     } else {
@@ -183,7 +183,7 @@
       },
       body: JSON.stringify({
         nomeServer: nomeVar,
-        categoriaServer: categoriafav,
+        categoriaServer: categoria,
         emailServer: emailVar,
         senhaServer: senhaVar
       }),
