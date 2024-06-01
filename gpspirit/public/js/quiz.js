@@ -61,7 +61,6 @@ function finish() {
   }).then(res => {
     console.log(res);
   })
-  console.log(questoesAcertos);
 }
 
 function loadQuestion() {

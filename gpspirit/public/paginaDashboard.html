@@ -5,14 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GP-Spirit | Quiz</title>
+    <title>GP-Spirit | Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/sessao.js"></script>
-
 </head>
 
 <body>
@@ -182,7 +181,7 @@
                     fill: false,
                     borderColor: '#0077C0',
                     borderWidth: 5,
-                    backgroundColor: '#FAFAFA',
+                    backgroundColor: '#0077C0',
                     tension: 0.1,
                     pointRadius: 5,
                     pointBorderWidth: 2
@@ -227,21 +226,8 @@
             },
         }
 
-
-
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
+        console.log('Dados recebidos e sendo plotados')
+       
 
         // Criando estrutura para plotar gráfico - config
         const config = {
@@ -286,20 +272,17 @@
     }
 
     function plotarGrafico2() {
-        console.log('iniciando plotagem do gráfico...');
+        console.log('iniciando plotagem do gráfico2...');
         let dados = {
             labels: nomesCategorias,
             datasets: [
                 {
-                    label: 'Pontuação',
+                    label: 'Votos',
                     data: qtdEscolhidas,
                     fill: false,
                     borderColor: '#0077C0',
-                    borderWidth: 5,
-                    backgroundColor: '#FAFAFA',
+                    backgroundColor: '#0077C0',
                     tension: 0.1,
-                    pointRadius: 5,
-                    pointBorderWidth: 2
                 },
             ]
         };
@@ -343,19 +326,7 @@
 
 
 
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
+        console.log('Dados grafico2 recebidos e sendo plotados')
 
         // Criando estrutura para plotar gráfico - config
         const config = {

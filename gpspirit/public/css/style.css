@@ -192,6 +192,22 @@ body {
     height: 100%
 }
 
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(5%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide.active {
+    display: flex;
+    animation: slideIn 1s ease-in-out;
+}
+
 .slidecontain {
     display: flex;
     align-items: center;

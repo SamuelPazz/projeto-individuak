@@ -158,7 +158,7 @@
                 <span>A Fórmula 1 é a maior, mais técnologica e mais famosa categoria do automobilismo, onde os melhores
                     pilotos do mundo competem nos circuitos mais famosos do globo em busca do pódio, superando os
                     menores tempos de volta</span>
-                <img class="card1img" src="./assets/formula1car.png" alt="">
+                <img class="card1img" src="./assets/formula1Car.png" alt="">
             </div>
 
             <div class="card card2">
@@ -166,7 +166,7 @@
                 <span>A Nascar é composta por carros robustos americanos que correm em circuitos ovais a mais de 300km/h
                     a centímetros dos outros, onde se utiliza muito do drafting(vácuo) e outras estratégias para
                     vencer.</span>
-                <img class="card2img" src="./assets/nascarcar.png" alt="">
+                <img class="card2img" src="./assets/nascarCar.png" alt="">
             </div>
         </div>
 
@@ -305,10 +305,12 @@ function mostrarSlide(num) {
     }
     //for que passa por todos slides e define o display de cada um como "none"
     for (var i = 0; i < slides.length; i++) {
+        slides[i].classList.remove('active');
         slides[i].style.display = "none";
     }
     //define a exibição do slide atual como "flex"
     slides[slideIndice - 1].style.display = "flex";
+    slides[slideIndice - 1].classList.add('active');
 }
 
 //chama a função mostrarSlide para mostrar o primeiro slide ao carregar o site 

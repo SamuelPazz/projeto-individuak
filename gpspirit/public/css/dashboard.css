@@ -122,15 +122,15 @@ body {
 .divGraficos {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .divGrafico1 {
-  background-color: rgba(14, 18, 21, 0.8);
+  background-color: rgba(14, 18, 21, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 600px;
+  width: 500px;
   padding: 20px;
   border-radius: 15px;
 }
