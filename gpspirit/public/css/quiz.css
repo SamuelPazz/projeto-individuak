@@ -162,6 +162,14 @@ main {
   padding: 10px;
 }
 
+.answerCorrect {
+  background-color: green;
+}
+
+.answerIncorrect {
+  background-color: red;
+}
+
 button {
   font-size: 22px;
   width: 100%;

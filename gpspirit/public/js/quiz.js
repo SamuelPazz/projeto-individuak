@@ -23,17 +23,25 @@ btnRestart.onclick = () => {
 };
 
 function nextQuestion(e) {
-  if (e.target.getAttribute("data-correct") === "true") {
+  const selectedAnswer = e.target;
+
+  if (selectedAnswer.getAttribute("data-correct") === "true") {
     questoesAcertos++;
+    selectedAnswer.classList.add("answerCorrect");
+  } else {
+    selectedAnswer.classList.add("answerIncorrect");
   }
 
-  if (indexAtual < questions.length - 1) {
-    indexAtual++;
-    loadQuestion();
-  } else {
-    finish();
-  }
+  setTimeout(() => {
+    if (indexAtual < questions.length - 1) {
+      indexAtual++;
+      loadQuestion();
+    } else {
+      finish();
+    }
+  }, 500);
 }
+
 
 function finish() {
   textFinish.innerHTML = ``
@@ -73,7 +81,7 @@ function loadQuestion() {
     const div = document.createElement("div");
 
     div.innerHTML = `
-    <button class="answer" data-correct="${answer.correct}">
+    <button id="answer" class="answer" data-correct="${answer.correct}">
       ${answer.option}
     </button>
     `;
