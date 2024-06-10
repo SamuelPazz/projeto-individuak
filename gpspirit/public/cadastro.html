@@ -25,7 +25,7 @@
     </nav>
 
     <div class="container-banner">
-          <span style="display: none;" class="mensagem_erro" id="mensagem_erro"></span>
+      <span style="display: none;" class="mensagem_erro" id="mensagem_erro"></span>
       <div class="container-formulario">
         <h1>CADASTRO</h1>
         <div class="container-campos">
@@ -59,7 +59,7 @@
             <span>Senha:</span>
             <input autocomplete="off" id="senha_input" type="password" placeholder="******" />
             <span class="spanValidate" id="validateSenha"></span>
-          </div> 
+          </div>
           <div class="campo">
             <span>Confirmação da Senha:</span>
             <input autocomplete="off" id="confirmInput" type="password" placeholder="******" />
@@ -74,6 +74,7 @@
     </div>
   </div>
 </body>
+
 </html>
 
 <script src="./js/sessao.js"></script>
@@ -84,6 +85,7 @@
   var validateConfirm = false
   var validateNome = false
   var validateSenha = false
+  var validateLetter = false
 
   function cadastrar() {
     var nomeVar = nome_input.value;
@@ -92,90 +94,96 @@
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmInput.value;
     var indiceEmail = emailVar.indexOf('@');
-  
-    if(nomeVar.length > 2 ){
+
+    if (nomeVar.length > 2) {
       document.getElementById("validateNome").style.display = "none";
       validateNome = true;
     } else {
       document.getElementById("validateNome").style.display = "block";
       document.getElementById("validateNome").innerHTML = "Deve conter mais de 2 caracteres";
       mensagem_erro.style.display = "block";
-      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      mensagem_erro.innerHTML = "Há campos inválidos, tente novamente";
       finalizarAguardar();
       validateNome = false;
     }
 
-    if(categoria !=  "#"){
+    if (categoria != "#") {
       document.getElementById("validateCategoria").style.display = "none"
       validateCategoria = true
     } else {
       document.getElementById("validateCategoria").style.display = "block";
       document.getElementById("validateCategoria").innerHTML = "Selecione uma categoria";
       mensagem_erro.style.display = "block";
-      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      mensagem_erro.innerHTML = "Há campos inválidos, tente novamente";
       finalizarAguardar();
       validateCategoria = false;
     }
 
-    if(indiceEmail >= 0){
+    if (indiceEmail >= 0) {
       document.getElementById("validateEmail").style.display = "none";
       validateEmail = true;
     } else {
       document.getElementById("validateEmail").style.display = "block";
       document.getElementById("validateEmail").innerHTML = "Deve conter @";
       mensagem_erro.style.display = "block";
-      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      mensagem_erro.innerHTML = "Há campos inválidos, tente novamente";
       finalizarAguardar();
       validateEmail = false;
     }
 
-
     for (var i = 0; i < senhaVar.length && validateUpper == false; i++) {
-        if (senhaVar[i] == senhaVar[i].toUpperCase()) {
-            validateUpper = true;
-        }
+      if (senhaVar[i] == senhaVar[i].toUpperCase()) {
+        validateUpper = true;
+      }
     }
 
     for (var i = 0; i < senhaVar.length && validateLower == false; i++) {
-        if (senhaVar[i] == senhaVar[i].toLowerCase()) {
-            validateLower = true;
-        }
+      if (senhaVar[i] == senhaVar[i].toLowerCase()) {
+        validateLower = true;
+      }
     }
 
-    if(validateUpper = true && validateLower == true && senhaVar.length >=6){
+    for (var i = 0; i < senhaVar.length && validateLetter == false; i++){
+      if (/[a-zA-Z]/.test(senhaVar[i])){
+        validateLetter = true;
+      }
+    }
+
+    if (validateUpper = true && validateLower == true && senhaVar.length >= 6 && validateLetter == true) {
       document.getElementById("validateSenha").style.display = "none";
       validateSenha = true;
     } else {
       document.getElementById("validateSenha").style.display = "block";
       document.getElementById("validateSenha").innerHTML = "Deve ter no minímo 6 caracteres, um caractere maiúsculo e um minúsculo.";
       mensagem_erro.style.display = "block";
-      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      mensagem_erro.innerHTML = "Há campos inválidos, tente novamente";
       finalizarAguardar();
       validateLower = false;
       validateUpper = false;
-      validateSenha = false
+      validateSenha = false;
+      validateLetter = false;
     }
-    
-    if(confirmacaoSenhaVar == senhaVar){
+
+    if (confirmacaoSenhaVar == senhaVar) {
       document.getElementById("validateConfirm").style.display = "none"
       validateConfirm = true;
     } else {
       document.getElementById("validateConfirm").style.display = "block";
       document.getElementById("validateConfirm").innerHTML = "Deve ser igual Senha";
       mensagem_erro.style.display = "block";
-      mensagem_erro.innerHTML ="Há campos inválidos, tente novamente";
+      mensagem_erro.innerHTML = "Há campos inválidos, tente novamente";
       finalizarAguardar();
       validateConfirm = false;
     }
 
-    if(validateNome == true && validateSenha == true && validateUpper == true && validateLower == true && validateEmail == true && validateConfirm == true && validateCategoria == true){
+    if (validateNome == true && validateSenha == true && validateUpper == true && validateLower == true && validateEmail == true && validateConfirm == true && validateCategoria == true && validateLetter == true) {
       mensagem_erro.style.display = "none";
       aguardar();
     } else {
       finalizarAguardar();
       return false;
     }
-  
+
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {

@@ -23,8 +23,8 @@ btnRestart.onclick = () => {
 };
 
 function nextQuestion(e) {
+  
   const selectedAnswer = e.target;
-
   if (selectedAnswer.getAttribute("data-correct") === "true") {
     questoesAcertos++;
     selectedAnswer.classList.add("answerCorrect");
@@ -46,7 +46,7 @@ function nextQuestion(e) {
 function finish() {
   textFinish.innerHTML = ``
   if(questoesAcertos <= 7){
-    textFinish.innerHTML += `Parece que você curte muito o automobilismo😓`
+    textFinish.innerHTML += `Parece que você não curte muito o automobilismo😓`
   } else if (questoesAcertos <= 12){
     textFinish.innerHTML += `Você gosta muito do automobilismo🚗`
   } else if (questoesAcertos <=16){

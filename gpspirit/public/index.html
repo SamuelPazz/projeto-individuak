@@ -281,38 +281,27 @@
 </html>
 <script>
 
-//variável slideIndice representa o índice do slide atual
 var slideIndice = 1;
 
-//function para avançar ou retroceder o slide com base no parâmetro 'num'
 function passarSlide(num) {
-// Incrementa ou decrementa o índice do slide atual e chama a função mostrarSlide com o novo índice
     mostrarSlide(slideIndice += num);
 }
-
-//function para mostrar o slide atual com base no índice fornecido
 function mostrarSlide(num) {
-    // Obtém todos os elementos com a classe "slide"
     var slides = document.getElementsByClassName("slide");
     
-    //se o índice recebido for maior que o número total de slides, redefine o índice para 1 (slide inicial)
     if (num > slides.length) {
         slideIndice = 1;
     }
-    //se o índice recebido for menor que 1, redefine o índice para o número total de slides (slide final)
     if (num < 1) {
         slideIndice = slides.length;
     }
-    //for que passa por todos slides e define o display de cada um como "none"
     for (var i = 0; i < slides.length; i++) {
         slides[i].classList.remove('active');
         slides[i].style.display = "none";
     }
-    //define a exibição do slide atual como "flex"
     slides[slideIndice - 1].style.display = "flex";
     slides[slideIndice - 1].classList.add('active');
 }
 
-//chama a função mostrarSlide para mostrar o primeiro slide ao carregar o site 
 mostrarSlide(slideIndice);
 </script>

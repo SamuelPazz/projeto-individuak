@@ -78,6 +78,7 @@
     var fkUsuario = sessionStorage.ID_USUARIO;
     window.onload = validarSessao(), pontosMax(), tentativasMax(), obterDadosGrafico(), obterDadosGrafico2();
 
+    
     function pontosMax() {
         fetch(`/dadosRoute/puxarMaxAcertos`, {
             method: "POST",
